@@ -8,7 +8,6 @@ import {
   withStyles,
 } from "@material-ui/core";
 import styles from "./header.styles";
-import { withRouter } from "react-router";
 
 class Header extends Component {
   handleTabChange = (e, newValue) => {
@@ -34,7 +33,7 @@ class Header extends Component {
             <div style={{ display: "flex", flexGrow: 1 }}></div>
 
             <Tabs
-              value={this.props.history.location.pathname}
+              value={"/"}
               onChange={this.handleTabChange}
               indicatorColor={"white"}
             >
@@ -42,11 +41,6 @@ class Header extends Component {
                 classes={{ selected: classes.selectedTab }}
                 label="Your Notes"
                 value="/"
-              />
-              <Tab
-                classes={{ selected: classes.selectedTab }}
-                label="Add Note"
-                value="/add-note"
               />
             </Tabs>
           </Toolbar>
@@ -57,4 +51,4 @@ class Header extends Component {
   }
 }
 
-export default withRouter(withStyles(styles)(Header));
+export default withStyles(styles)(Header);

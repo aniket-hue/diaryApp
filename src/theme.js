@@ -14,6 +14,15 @@ const theme = createMuiTheme({
         color: "#16101c",
       },
     },
+    MuiTableCell: {
+      root: {
+        fontFamily: "Montserrat",
+      },
+      head: {
+        fontWeight: 600,
+        fontFamily: 15,
+      },
+    },
   },
 });
 
