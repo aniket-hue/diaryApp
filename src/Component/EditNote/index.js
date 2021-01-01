@@ -42,13 +42,18 @@ class EditNote extends Component {
       date: this.state.date,
     };
 
-    await firebase
+    try{
+      await firebase
       .firestore()
       .collection("notes")
       .doc(this.state.id)
       .update({ data });
+      this.props.snackbar("Note edited successfully", "success");
+    }
+    catch(error){
+      this.props.snackbar("Please try again", "error");
+    }
 
-    this.props.snackbar("Note edited successfully", "success");
   };
 
   render() {

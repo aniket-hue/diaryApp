@@ -28,7 +28,7 @@ class Header extends Component {
 
             <div style={{ display: "flex", flexGrow: 1 }}></div>
 
-            <Tabs value={"/"} indicatorColor={"white"}>
+            <Tabs value={"/"} indicatorColor={"#fff"}>
               <Tab
                 classes={{ selected: classes.selectedTab }}
                 label="Your Notes"

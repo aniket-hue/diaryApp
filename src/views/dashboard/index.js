@@ -43,8 +43,7 @@ class Dashboard extends Component {
     this.setState({ [e.target.name]: e.target.value }, () => {
       if (this.state.startDate !== "" && this.state.endDate !== "") {
         this.setFilter();
-      } else if (this.state.startDate === "" && this.state.endDate === "")
-        this.setState({ notes: this.state.allNotes });
+      }
     });
   };
 
@@ -74,7 +73,6 @@ class Dashboard extends Component {
             style={{
               ...styles.createButt,
               backgroundColor: "#7f7fff",
-              display: "inline",
             }}
             startIcon={<Add />}
             variant="contained"
@@ -100,14 +98,35 @@ class Dashboard extends Component {
               name="endDate"
               onChange={this.onDateChangeHandle}
             />
+            <span
+              onClick={() =>
+                this.setState({
+                  startDate: "",
+                  endDate: "",
+                  notes: this.state.allNotes,
+                })
+              }
+              style={{
+                marginLeft: 10,
+                fontFamily: "Montserrat",
+                cursor: "pointer",
+              }}
+            >
+              Clear
+            </span>
           </div>
         </div>
         <NotesTable notes={this.state.notes} snackbar={this.props.snackbar} />
         <SwipeableDrawer
           anchor="top"
+          onOpen={() => {
+            this.setState({
+              createNoteModal: true,
+            });
+          }}
           onClose={() =>
             this.setState({
-              createNoteModal: !this.state.createNoteModal,
+              createNoteModal: false,
             })
           }
           open={this.state.createNoteModal}

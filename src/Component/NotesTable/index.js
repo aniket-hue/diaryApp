@@ -127,8 +127,8 @@ class NotesTable extends Component {
               this.getComparator(this.state.order, this.state.orderBy)
             ).map((data) => {
               return (
-                <>
-                  <TableRow hover key={data.id}>
+                <React.Fragment key={data.id}>
+                  <TableRow hover>
                     <TableCell>{data.title}</TableCell>
                     <TableCell
                       style={{
@@ -181,7 +181,7 @@ class NotesTable extends Component {
                       </Collapse>
                     </TableCell>
                   </TableRow>
-                </>
+                </React.Fragment>
               );
             })}
           </TableBody>
