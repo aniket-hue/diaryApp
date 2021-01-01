@@ -10,10 +10,6 @@ import {
 import styles from "./header.styles";
 
 class Header extends Component {
-  handleTabChange = (e, newValue) => {
-    this.props.history.push(newValue);
-  };
-
   render() {
     const { classes } = this.props;
     return (
@@ -32,11 +28,7 @@ class Header extends Component {
 
             <div style={{ display: "flex", flexGrow: 1 }}></div>
 
-            <Tabs
-              value={"/"}
-              onChange={this.handleTabChange}
-              indicatorColor={"white"}
-            >
+            <Tabs value={"/"} indicatorColor={"white"}>
               <Tab
                 classes={{ selected: classes.selectedTab }}
                 label="Your Notes"

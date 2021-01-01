@@ -4,7 +4,7 @@ export default {
   },
   editDelButt: {
     color: "white",
-    fontFamily: "inherit",
+    fontFamily: "Montserrat",
     minWidth: "100px",
   },
 };
