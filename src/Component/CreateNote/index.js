@@ -2,7 +2,6 @@ import { Button, TextField, Typography, withStyles } from "@material-ui/core";
 import React, { Component } from "react";
 import styles from "./createNote.styles";
 import { Close } from "@material-ui/icons";
-import moment from 'moment'
 class CreateNote extends Component {
   state = {
     title: "",

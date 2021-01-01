@@ -75,6 +75,14 @@ class EditNote extends Component {
             rows={6}
             onChange={this.inputHandler}
           />
+          <input
+            type="date"
+            name="date"
+            value={this.state.date}
+            onChange={this.inputHandler}
+            style={styles.dateInput}
+            placeholder="Select Date"
+          />
         </div>
         <Button variant="contained" onClick={this.handleEdit}>
           Edit

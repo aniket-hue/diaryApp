@@ -21,4 +21,13 @@ export default {
   outlineColor: {
     color: "#ccc",
   },
+  dateInput: {
+    marginBottom: 20,
+    border: "1px solid #c2c2c2",
+    color: "#857e7e",
+    width:"100%",
+    height:"40px",
+    borderRadius: 4,
+    cursor: "pointer",
+  },
 };
