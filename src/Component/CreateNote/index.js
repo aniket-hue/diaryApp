@@ -1,24 +1,20 @@
-import {
-  Button,
-  TextField,
-  Typography,
-  withStyles,
-} from "@material-ui/core";
+import { Button, TextField, Typography, withStyles } from "@material-ui/core";
 import React, { Component } from "react";
 import styles from "./createNote.styles";
 import { Close } from "@material-ui/icons";
-
+import moment from 'moment'
 class CreateNote extends Component {
   state = {
     title: "",
     description: "",
+    date: "",
   };
 
   handleNoteData = () => {
     const data = {
       title: this.state.title,
       description: this.state.description,
-      date: new Date().toString(),
+      date: this.state.date,
     };
     this.props.handleCreate(data);
   };
@@ -42,28 +38,42 @@ class CreateNote extends Component {
         </div>
         <div style={styles.container}>
           <div style={styles.fieldsBlock}>
-            <TextField
-              name="title"
-              value={this.state.title}
-              style={styles.textField}
-              label="Title"
-              fullWidth={true}
-              variant="outlined"
-              onChange={this.inputHandler}
-            />
-            <TextField
-              name="description"
-              value={this.state.description}
-              style={styles.textField}
-              label="Description"
-              multiline={true}
-              fullWidth={true}
-              variant="outlined"
-              rows={6}
-              onChange={this.inputHandler}
-            />
+            <form>
+              <TextField
+                name="title"
+                value={this.state.title}
+                style={styles.textField}
+                label="Title"
+                fullWidth={true}
+                variant="outlined"
+                onChange={this.inputHandler}
+              />
+              <TextField
+                name="description"
+                value={this.state.description}
+                style={styles.textField}
+                label="Description"
+                multiline={true}
+                fullWidth={true}
+                variant="outlined"
+                rows={6}
+                onChange={this.inputHandler}
+              />
+              <input
+                type="date"
+                name="date"
+                value={this.state.date}
+                onChange={this.inputHandler}
+                style={styles.dateInput}
+                placeholder="Select Date"
+              />
+            </form>
           </div>
-          <Button variant="contained" onClick={this.handleNoteData}>
+          <Button
+            variant="contained"
+            style={{ ...styles.createButt, backgroundColor: "black" }}
+            onClick={this.handleNoteData}
+          >
             Create
           </Button>
         </div>
