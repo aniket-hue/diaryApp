@@ -172,7 +172,10 @@ class NotesTable extends Component {
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell colSpan={5} style={{ padding: 0 }}>
+                    <TableCell
+                      colSpan={5}
+                      style={{ padding: 0, border: "none" }}
+                    >
                       <Collapse in={this.state.editMode[data.id]}>
                         <EditNote note={data} snackbar={this.props.snackbar} />
                       </Collapse>

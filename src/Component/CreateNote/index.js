@@ -19,6 +19,7 @@ class CreateNote extends Component {
     const data = {
       title: this.state.title,
       description: this.state.description,
+      date: new Date().toString(),
     };
     this.props.handleCreate(data);
   };
