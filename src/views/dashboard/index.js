@@ -1,6 +1,6 @@
 import { Button, SwipeableDrawer, withStyles } from "@material-ui/core";
 import React, { Component } from "react";
-import NotesTable from "../../Component/notesTable";
+import NotesTable from "../../Component/NotesTable";
 import Spinner from "../../Component/Spinner";
 import firebase from "../../firebase";
 import styles from "./dashboard.styles";
@@ -64,7 +64,10 @@ class Dashboard extends Component {
           open={this.state.createNoteModal}
           classes={{ paper: classes.modal }}
         >
-          <CreateNote handleCreate={(data) => this.handleCreate(data)} />
+          <CreateNote
+            handleCreate={(data) => this.handleCreate(data)}
+            closeModal={() => this.setState({ createNoteModal: false })}
+          />
         </SwipeableDrawer>
       </div>
     );

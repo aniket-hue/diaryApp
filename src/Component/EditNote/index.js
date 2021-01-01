@@ -12,6 +12,16 @@ class EditNote extends Component {
   };
 
   componentDidMount() {
+    this.fetchNote();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.note !== prevProps.note) {
+      this.fetchNote();
+    }
+  }
+
+  fetchNote = () => {
     const { note } = this.props;
     this.setState({
       title: note.title,
@@ -19,7 +29,7 @@ class EditNote extends Component {
       id: note.id,
       date: note.date,
     });
-  }
+  };
 
   inputHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -31,7 +41,7 @@ class EditNote extends Component {
       description: this.state.description,
       date: this.state.date,
     };
-    
+
     await firebase
       .firestore()
       .collection("notes")

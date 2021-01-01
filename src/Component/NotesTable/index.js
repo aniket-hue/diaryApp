@@ -14,7 +14,7 @@ import {
 import React, { Component } from "react";
 import styles from "./notesTable.styles";
 import moment from "moment";
-import EditNote from "../../Component/editNote";
+import EditNote from "../EditNote";
 import firebase from "../../firebase";
 import { Edit, Delete } from "@material-ui/icons";
 

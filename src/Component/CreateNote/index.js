@@ -1,6 +1,5 @@
 import {
   Button,
-  SwipeableDrawer,
   TextField,
   Typography,
   withStyles,
@@ -36,7 +35,7 @@ class CreateNote extends Component {
           <div style={{ display: "flex", flexGrow: 1 }}></div>
           <span
             style={{ cursor: "pointer" }}
-            onClick={() => this.setState({ createNoteModal: false })}
+            onClick={() => this.props.closeModal()}
           >
             <Close />
           </span>
