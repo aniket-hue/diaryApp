@@ -23,6 +23,11 @@ const theme = createMuiTheme({
         fontFamily: 15,
       },
     },
+    MuiInput: {
+      input: {
+        padding: 0,
+      },
+    },
   },
 });
 

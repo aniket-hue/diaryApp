@@ -6,15 +6,17 @@ import firebase from "../../firebase";
 import styles from "./dashboard.styles";
 import { Add } from "@material-ui/icons";
 import CreateNote from "../../Component/CreateNote";
+import Filter from "../../Component/Filter";
 import moment from "moment";
+
 class Dashboard extends Component {
   state = {
     notes: [],
     allNotes: [],
     loading: true,
     createNoteModal: false,
-    startDate: "",
-    endDate: "",
+    months: [],
+    years: [],
   };
 
   componentDidMount() {
@@ -27,39 +29,63 @@ class Dashboard extends Component {
       .collection("notes")
       .onSnapshot((q) => {
         const items = [];
+
+        let years = new Set(),
+          months = new Set();
+
         q.forEach((el) => {
           items.push({ ...el.data().data, id: el.id });
+
+          let date = el.data().data.date.split("-");
+
+          years.add(date[0]);
+
+          months.add(
+            moment(date)
+              .month(moment(date).month() - 1)
+              .format("MMMM")
+          );
         });
-        this.setState({ allNotes: items, notes: items, loading: false });
+
+        this.setState({
+          allNotes: items,
+          notes: items,
+          loading: false,
+          years: [...years],
+          months: [...months],
+        });
       });
+  };
+
+  setFilter = (filter) => {
+    if (!filter.yearFilter && !filter.monthFilter)
+      this.setState({ notes: this.state.allNotes });
+    else {
+      let { allNotes } = this.state;
+
+      if (filter.monthFilter) {
+        allNotes = allNotes.filter(({ date }) => {
+          return (
+            moment(date).month(moment(date).month()).format("MMMM") ===
+            filter.monthFilter
+          );
+        });
+      }
+
+      if (filter.yearFilter) {
+        allNotes = allNotes.filter(({ date }) => {
+          date = date.split("-")[0];
+          return date === filter.yearFilter;
+        });
+      }
+
+      this.setState({ notes: allNotes });
+    }
   };
 
   handleCreate = async (data) => {
     await firebase.firestore().collection("notes").add({ data });
     this.setState({ createNoteModal: false });
-  };
-
-  onDateChangeHandle = (e) => {
-    this.setState({ [e.target.name]: e.target.value }, () => {
-      if (this.state.startDate !== "" && this.state.endDate !== "") {
-        this.setFilter();
-      }
-    });
-  };
-
-  setFilter = () => {
-    let { startDate, endDate, allNotes } = this.state;
-
-    if (moment(startDate).isAfter(endDate))
-      this.props.snackbar("Start Date should be smaller!", "error");
-    else {
-      allNotes = allNotes.filter(
-        (el) =>
-          moment(startDate).isSameOrBefore(el.date, "day") &&
-          moment(endDate).isSameOrAfter(el.date, "day")
-      );
-      this.setState({ notes: allNotes, startDate, endDate });
-    }
   };
 
   render() {
@@ -80,43 +106,16 @@ class Dashboard extends Component {
           >
             Create Note
           </Button>
-          <div style={styles.filterBox}>
-            <span style={styles.dateLabel}>Start Date:</span>{" "}
-            <input
-              style={styles.dateBox}
-              type="date"
-              name="startDate"
-              value={this.state.startDate}
-              onChange={this.onDateChangeHandle}
-            />
-            <span style={styles.verticalLine}></span>
-            <span style={styles.dateLabel}> End Date:</span>{" "}
-            <input
-              style={styles.dateBox}
-              value={this.state.endDate}
-              type="date"
-              name="endDate"
-              onChange={this.onDateChangeHandle}
-            />
-            <span
-              onClick={() =>
-                this.setState({
-                  startDate: "",
-                  endDate: "",
-                  notes: this.state.allNotes,
-                })
-              }
-              style={{
-                marginLeft: 10,
-                fontFamily: "Montserrat",
-                cursor: "pointer",
-              }}
-            >
-              Clear
-            </span>
-          </div>
+
+          <Filter
+            applyFilter={(data) => this.setFilter(data)}
+            months={this.state.months}
+            years={this.state.years}
+          />
         </div>
+
         <NotesTable notes={this.state.notes} snackbar={this.props.snackbar} />
+
         <SwipeableDrawer
           anchor="top"
           onOpen={() => {
