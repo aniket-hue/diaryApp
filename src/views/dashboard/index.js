@@ -103,6 +103,7 @@ class Dashboard extends Component {
             startIcon={<Add />}
             variant="contained"
             onClick={() => this.setState({ createNoteModal: true })}
+            // onClick={()=>this.sentryButton()}
           >
             Create Note
           </Button>
